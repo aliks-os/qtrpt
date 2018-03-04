@@ -45,7 +45,7 @@ private:
 private slots:
     void print();
     void setField(RptFieldObject &);
-    void setRecordCount(const int reportPage, int &recordCount);
+    void setDSInfo(DataSetInfo &dsInfo);
 };
 
 #endif // EXAMPLEDLG14_H

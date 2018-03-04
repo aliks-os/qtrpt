@@ -193,16 +193,16 @@ void ExampleDlg14::print()
     band4->addField(pf);  //Append field to the PageFooterBand
 
     QObject::connect(report.data(), SIGNAL(setField(RptFieldObject &)), this, SLOT(setField(RptFieldObject &)));
-    QObject::connect(report.data(), SIGNAL(setRecordCount(const int, int &)),
-                     this, SLOT(setRecordCount(const int, int &)));
+    QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                     this, SLOT(setDSInfo(DataSetInfo &)));
 
 
     report->printExec();
 }
 
-void ExampleDlg14::setRecordCount(const int reportPage, int &recordCount)
+void ExampleDlg14::setDSInfo(DataSetInfo &dsInfo)
 {
-    recordCount = 4;
+    dsInfo.recordCount = 4;
 }
 
 void ExampleDlg14::setField(RptFieldObject &fieldObject)

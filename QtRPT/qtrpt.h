@@ -83,6 +83,14 @@ QScriptValue funcRound(QScriptContext *context, QScriptEngine *engine);
 static QList<AggregateValues> listOfPair;
 static QList<int> listIdxOfGroup;
 
+struct DataSetInfo {
+   int reportPage;
+   int dataSetNo;
+   int recordCount;
+};
+typedef QList<DataSetInfo> DataSetInfoList;
+
+
 
 #ifndef QTRPT_LIBRARY
     class QtRPT : public QObject
@@ -171,13 +179,13 @@ private:
     void newPage(QPrinter *printer, int &y, bool draw, bool newReportPage = false);
     void processPHeader(int &y, bool draw);
     void processPFooter(bool draw);
-    void processMFooter(QPrinter* printer, int &y, bool draw);
+    void processMFooter(QPrinter* printer, int &y, int dsNo, bool draw);
     void processRSummary(QPrinter* printer, int &y, bool draw);
     //void (*callbackFunc)(int &recNo, QString &paramName, QVariant &paramValue);
     void processReport(QPrinter *printer, bool draw, int pageReport);
     void processRTitle(int &y, bool draw);
-    void processMHeader(int &y, bool draw);
-    void processMasterData(QPrinter* printer, int &y, bool draw, int pageReport);
+    void processMHeader(int &y, int dsNo, bool draw);
+    void processMasterData(QPrinter* printer, int &y, bool draw, int pageReport, int dsNo);
     void processGroupHeader(QPrinter* printer, int &y, bool draw, int pageReport);
     void setPageSettings(QPrinter* printer, int pageReport);
     void drawBackground(bool draw);
@@ -194,10 +202,12 @@ private:
     void drawFields(RptFieldObject *fieldObject, int bandTop, bool firstPass);
     void drawLines(RptFieldObject *fieldObject, int bandTop);
     void openDataSource(int pageReport);
+    int getRecCount(int reportPage, int dsSetNo);
+    void setRecCount(int reportPage, int dsSetNo, int recCount);
     void setUserSqlConnection(int pageReport, const RptSqlConnection &sqlConnection);
     void getUserSqlConnection(int pageReport, RptSqlConnection &sqlConnection);
 
-    QList<int> m_recordCount;
+    DataSetInfoList m_dataSetInfoList;
 
     QString m_sqlQuery;
     QString m_HTML;
@@ -225,7 +235,7 @@ signals:
     void setValueDiagram(Chart &chart);
     void setChart(RptFieldObject &fieldObject, QChart &chart);
     void newPage(int page);
-    void setRecordCount(const int reportPage, int &recordCount);
+    void setDSInfo(DataSetInfo &dsInfo);
 
 public slots:
     void printPreview(QPrinter *printer);

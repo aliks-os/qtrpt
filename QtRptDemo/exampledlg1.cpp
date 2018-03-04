@@ -23,7 +23,6 @@ limitations under the License.
 
 #include "exampledlg1.h"
 #include "ui_exampledlg1.h"
-#include "qtrpt.h"
 #include <QDebug>
 
 ExampleDlg1::ExampleDlg1(QWidget *parent)
@@ -111,16 +110,16 @@ void ExampleDlg1::print()
                      this, SLOT(setValue(const int, const QString, QVariant&, const int)));
     QObject::connect(report, SIGNAL(setValueImage(const int, const QString, QImage&, const int)),
                      this, SLOT(setValueImage(const int, const QString, QImage&, const int)));
-    QObject::connect(report, SIGNAL(setRecordCount(const int, int &)),
-                     this, SLOT(setRecordCount(const int, int &)));
+    QObject::connect(report, SIGNAL(setDSInfo(DataSetInfo &)),
+                     this, SLOT(setDSInfo(DataSetInfo &)));
 
     //report->setCallbackFunc(getReportValue);
     report->printExec(true);
 }
 
-void ExampleDlg1::setRecordCount(const int reportPage, int &recordCount)
+void ExampleDlg1::setDSInfo(DataSetInfo &dsInfo)
 {
-    recordCount = ui->tableWidget->rowCount();
+    dsInfo.recordCount = ui->tableWidget->rowCount();
 }
 
 ExampleDlg1::~ExampleDlg1()

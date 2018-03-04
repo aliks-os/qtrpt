@@ -44,8 +44,8 @@ void ExampleDlg13::print()
     QtRPT *report = new QtRPT(this);
 
     QObject::connect(report, SIGNAL(setField(RptFieldObject &)), this, SLOT(setField(RptFieldObject &)));
-    QObject::connect(report, SIGNAL(setRecordCount(const int, int &)),
-                     this, SLOT(setRecordCount(const int, int &)));
+    QObject::connect(report, SIGNAL(setDSInfo(DataSetInfo &)),
+                     this, SLOT(setDSInfo(DataSetInfo &)));
 
     if (report->loadReport(fileName) == false) {
         qDebug()<<"Report file not found";
@@ -54,9 +54,9 @@ void ExampleDlg13::print()
     report->printExec();
 }
 
-void ExampleDlg13::setRecordCount(const int reportPage, int &recordCount)
+void ExampleDlg13::setDSInfo(DataSetInfo &dsInfo)
 {
-    recordCount = 3;
+    dsInfo.recordCount = 3;
 }
 
 void ExampleDlg13::setField(RptFieldObject &fieldObject)

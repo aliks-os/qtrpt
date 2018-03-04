@@ -170,12 +170,24 @@ void RptPageObject::addBand(RptBandObject *band)
 
     \sa RptBandObject
 */
-RptBandObject *RptPageObject::getBand(BandType type)
+RptBandObject *RptPageObject::getBand(BandType type, int No)
 {
     for (auto &band : bandList)
-        if (band->type == type)
+        if (band->type == type && band->bandNo == No)
             return band;
+
     return nullptr;
+}
+
+int RptPageObject::bandsCountByType(BandType type)
+{
+    int count = 0;
+    for (auto &band : bandList)
+        if (band->type == type)
+            if (band->bandNo > count)
+                count = band->bandNo;
+
+    return count;
 }
 
 /*!

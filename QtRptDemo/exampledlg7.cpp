@@ -149,8 +149,8 @@ void ExampleDlg7::print()
     if (report->loadReport(fileName) == false)
         qDebug()<<"Report file not found";
 
-    QObject::connect(report.data(), SIGNAL(setRecordCount(const int, int &)),
-                     this, SLOT(setRecordCount(const int, int &)));
+    QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                     this, SLOT(setDSInfo(DataSetInfo &)));
 
     //QObject::connect(report.data(), SIGNAL(setValue(const int, const QString, QVariant&, const int)),
     //                 this, SLOT(setValue(const int, const QString, QVariant&, const int)));
@@ -169,9 +169,9 @@ void ExampleDlg7::print()
     report->printExec();*/
 }
 
-void ExampleDlg7::setRecordCount(const int reportPage, int &recordCount)
+void ExampleDlg7::setDSInfo(DataSetInfo &dsInfo)
 {
-    recordCount = ui->tableWidget->rowCount();
+    dsInfo.recordCount = ui->tableWidget->rowCount();
 }
 
 ExampleDlg7::~ExampleDlg7()

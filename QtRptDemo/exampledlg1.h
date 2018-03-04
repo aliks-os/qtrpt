@@ -30,6 +30,7 @@ limitations under the License.
     #include <QtGui>
 #endif
 #include <QDialog>
+#include "qtrpt.h"
 
 namespace Ui {
     class ExampleDlg1;
@@ -50,7 +51,7 @@ private slots:
     void print();
     void setValue(const int recNo, const QString paramName, QVariant &paramValue, const int reportPage);
     void setValueImage(const int recNo, const QString paramName, QImage &paramValue, const int reportPage);
-    void setRecordCount(const int reportPage, int &recordCount);
+    void setDSInfo(DataSetInfo &dsInfo);
 
 };
 

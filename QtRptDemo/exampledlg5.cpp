@@ -94,15 +94,15 @@ void ExampleDlg5::print()
     }
     QObject::connect(report, SIGNAL(setValue(const int, const QString, QVariant&, const int)),
                      this, SLOT(setValue(const int, const QString, QVariant&, const int)));
-    QObject::connect(report, SIGNAL(setRecordCount(onst int, int &)),
-                     this, SLOT(setRecordCount(const int, int &)));
+    QObject::connect(report, SIGNAL(setDSInfo(DataSetInfo &)),
+                     this, SLOT(setDSInfo(DataSetInfo &)));
     report->printExec();
 
 }
 
-void ExampleDlg5::setRecordCount(const int reportPage, int &recordCount)
+void ExampleDlg5::setDSInfo(DataSetInfo &dsInfo)
 {
-    recordCount = ui->tableWidget->rowCount();
+    dsInfo.recordCount = ui->tableWidget->rowCount();
 }
 
 ExampleDlg5::~ExampleDlg5()

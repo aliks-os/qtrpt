@@ -73,6 +73,9 @@ void MainWindow::showReport()
         if (report->loadReport(fileName) == false)
             qDebug() << "Report file not found";
 
+        QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                         this, SLOT(setDSInfo(DataSetInfo &)));
+
         report->printExec();
     }
     else if (ui->rBtn11->isChecked())
@@ -94,6 +97,8 @@ void MainWindow::showReport()
 
         QObject::connect(report.data(), SIGNAL(setValue(const int, const QString, QVariant&, const int)),
                          this, SLOT(setValue(const int, const QString, QVariant&, const int)));
+        QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                         this, SLOT(setDSInfo(DataSetInfo &)));
         if (report->loadReport(fileName) == false)
             qDebug() << "Report file not found";
 
@@ -136,6 +141,8 @@ void MainWindow::showReport()
 
         QObject::connect(report.data(), SIGNAL(setValue(const int, const QString, QVariant&, const int)),
                          this, SLOT(setValue(const int, const QString, QVariant&, const int)));
+        QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                         this, SLOT(setDSInfo(DataSetInfo &)));
         if (report->loadReport(fileName) == false)
             qDebug() << "Report file not found";
 
@@ -150,6 +157,21 @@ void MainWindow::showReport()
             qDebug()<<"Report file not found";
 
         QObject::connect(report.data(), SIGNAL(setField(RptFieldObject &)), this, SLOT(setField(RptFieldObject &)));
+
+        report->printExec(true);
+    }
+    else if (ui->rBtn19->isChecked())
+    {
+        QString fileName = dir.absolutePath()+"/examples_report/example19.xml";
+        auto report = QtRPT::createSPtr(this);
+
+        if (report->loadReport(fileName) == false)
+            qDebug()<<"Report file not found";
+
+        QObject::connect(report.data(), SIGNAL(setValue(const int, const QString, QVariant&, const int)),
+                         this, SLOT(setValue(const int, const QString, QVariant&, const int)));
+        QObject::connect(report.data(), SIGNAL(setDSInfo(DataSetInfo &)),
+                         this, SLOT(setDSInfo(DataSetInfo &)));
 
         report->printExec(true);
     }
@@ -171,16 +193,23 @@ void MainWindow::showReport()
     delete dlg;
 }
 
-void MainWindow::setRecordCount(const int reportPage, int &recordCount)
+void MainWindow::setDSInfo(DataSetInfo &dsInfo)
 {
     if (ui->rBtn17->isChecked())
-        recordCount = doubleVector.size();
+        dsInfo.recordCount = doubleVector.size();
 
     if (ui->rBtn10->isChecked())
-        recordCount = 3;
+        dsInfo.recordCount = 3;
 
     if (ui->rBtn12->isChecked())
-        recordCount = 3;
+        dsInfo.recordCount = 3;
+
+    if (ui->rBtn19->isChecked()) {
+        if (dsInfo.dataSetNo == 1)
+            dsInfo.recordCount = 5;
+        if (dsInfo.dataSetNo == 2)
+            dsInfo.recordCount = 3;
+    }
 }
 
 void MainWindow::setValue(const int recNo, const QString paramName, QVariant &paramValue, const int reportPage)
@@ -231,6 +260,12 @@ void MainWindow::setValue(const int recNo, const QString paramName, QVariant &pa
     if (ui->rBtn17->isChecked()) {
         if (paramName == "number")
             paramValue = QString::number(doubleVector.at(recNo)/100,'f',2);
+    }
+    if (ui->rBtn19->isChecked()) {
+        if (paramName == "ds1")
+            paramValue = recNo;
+        if (paramName == "ds2")
+            paramValue = recNo;
     }
 }
 

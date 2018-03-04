@@ -182,6 +182,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QRadioButton" name="rBtn19">
+           <property name="text">
+            <string>Several data bands</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -266,8 +273,8 @@
  <resources>
   <include location="../QtRPT/imagesRpt.qrc"/>
   <include location="../QtRPT/imagesRpt.qrc"/>
-  <include location="../QtRPT/imagesRpt.qrc"/>
   <include location="resurce.qrc"/>
+  <include location="../QtRPT/imagesRpt.qrc"/>
  </resources>
  <connections/>
 </ui>

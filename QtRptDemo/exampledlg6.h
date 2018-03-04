@@ -47,7 +47,7 @@ private:
 private slots:
     void print();
     void setValue(const int recNo, const QString paramName, QVariant &paramValue, const int reportPage);
-    void setRecordCount(const int reportPage, int &recordCount);
+    void setDSInfo(DataSetInfo &dsInfo);
 
 };
 

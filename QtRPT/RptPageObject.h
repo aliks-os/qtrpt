@@ -54,7 +54,8 @@ public:
     QColor borderColor;
     QString borderStyle;
     void addBand(RptBandObject *band);
-    RptBandObject *getBand(BandType type);
+    RptBandObject *getBand(BandType type, int No);
+    int bandsCountByType(BandType type);
     RptFieldObject *findFieldObjectByName(QString name);
     QList<RptBandObject*> bandList;
     int recordCount;

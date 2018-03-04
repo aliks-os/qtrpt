@@ -126,7 +126,7 @@ void RptBandObject::setProperty(QtRPT *qtrpt, QDomElement docElem)
     groupingField = docElem.attribute("groupingField");
     showInGroup = docElem.attribute("showInGroup","0").toInt();
     startNewPage = docElem.attribute("startNewPage","0").toInt();
-    bandNo = e.attribute("bandNo", "1").toInt();
+    bandNo = docElem.attribute("bandNo", "1").toInt();
 
     if (docElem.attribute("type") == "ReportTitle")
         type = ReportTitle;
